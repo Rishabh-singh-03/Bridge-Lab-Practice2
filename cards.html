@@ -1,138 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    .card-container{
-        display: flex;
-        margin: 35px auto;
-        gap: 18px;
-        width: 90%;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking</title>
 
-    }
-  .movie-card{
-  width: 360px;
-  border: 1px solid #e5e7eb;
-  background-color: white;
-  border-radius: 16px;
-  overflow: hidden;
+    <style>
 
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation:Cardanimation 1s ease; 
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.movie-card:hover{
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-    .movie-image img{
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-    .movie-title{
-      font-weight: 600;
+        body {
+            font-family: sans-serif;
+            background-color: #eae5ff;
+            padding: 40px;
+        }
 
-    }
-    movie-details{
-      color: #545459;
-    }
-    .movie-info{
-   padding: 13px 14px ;
-    }
-    @keyframes Cardanimation{
-      from{
-        opacity: 0;
-        transform: translate(30px);
-      }
-      to{
-        opacity: 1;
-        transform: translate(0px);
-      }
-    } 
-    .movie-card {
-  opacity: 0;
-  animation: Cardanimation 0.5s ease forwards;
-}
-    
-    .movie-card:nth-child(1) {
-  animation-delay: 0s;
-}
+       
 
-.movie-card:nth-child(2) {
-  animation-delay: 0.2s;
-}
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 230px);
+            gap: 30px;
+            justify-content: center;
+        }
 
-.movie-card:nth-child(3) {
-  animation-delay: 0.4s;
-}
 
-.movie-card:nth-child(4) {
-  animation-delay: 0.6s;
-}
-  </style>
+       
+
+        .movie-card {
+            width: 230px;
+            border: 1px solid #00000014;
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+
+            animation: cardAppear 0.6s ease forwards;
+            opacity: 0;
+
+            transition: transform 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+
+
+        .movie-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+
+
+        @keyframes cardAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .movie-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .movie-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .movie-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .movie-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .movie-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .movie-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+
+
+        .movie-image {
+            overflow: hidden;
+        }
+
+        .movie-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+
+            transition: transform 0.4s ease;
+        }
+
+
+        .movie-card:hover .movie-image img {
+            transform: scale(1.08);
+        }
+
+
+        .movie-info {
+            padding: 12px;
+        }
+
+        .movie-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .movie-details {
+            color: #545459;
+        }
+
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .tooltip {
+            position: absolute;
+
+            bottom: 130%;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            background-color: #333;
+            color: white;
+
+            padding: 6px 10px;
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: opacity 0.3s ease;
+        }
+
+
+        .tooltip-container:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+
+        .book-btn {
+            height: 35px;
+            width: 100px;
+
+            margin: 0 12px 12px;
+
+            border: none;
+            border-radius: 5px;
+
+            background-color: #545459;
+            color: white;
+
+            cursor: pointer;
+
+            transition: transform 0.2s ease,
+                        background-color 0.2s ease;
+        }
+
+
+        .book-btn:hover {
+            transform: scale(1.08);
+            background-color: #222;
+        }
+
+
+       
+
+        .notification {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            padding: 15px 20px;
+
+            background-color: rgb(16, 183, 16);
+            color: white;
+
+            border-radius: 8px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            animation: notificationSlide 0.5s ease;
+        }
+
+
+        @keyframes notificationSlide {
+
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-  
-  <div class="card-container">
 
-  
-  <div class="movie-card">
-    <div class="movie-image">
-      <img src="https://cdn.district.in/movies-assets/images/cinema/Hanuman-Ansh-3199a900-6975-11f1-a51b-91d242246b61.jpg">
+
+    <div class="cards-container">
+
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/_Poster-d0d78f60-961a-11f1-8483-eb84b060bac3.jpg;
+                    alt="Mirzapur movie poster">
+
+            </div>
+
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    Mirzapur: The Movie
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/Hanuman-Ansh-3199a900-6975-11f1-a51b-91d242246b61.jpg;
+                    alt="Hanuman movie poster">
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    Hanuman 
+                     Ansh
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
+
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/toxiv%3Dc-8340c900-9c6f-11f1-97d4-73a32236137e.jpg";
+                    alt="Toxic Movie poster">
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    Toxic: A Fairy Tale For Grown-ups
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
+
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/_Poster%20(28)-208bf360-ac06-11f1-917e-0d151330b8ad.jpg;
+                    alt="Haiwaan Movie poster">
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                     Haiwaan
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
+
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/Last-Man-In-Tower_Poster-a1d2b4f0-aab1-11f1-a1a3-a56d1540da34.jpg;
+                    alt="Last Man in Tower Movie poster">
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    Last Man in Tower
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
+
+
+
+        <div class="movie-card">
+
+            <div class="movie-image">
+
+                <img src="https://cdn.district.in/movies-assets/images/cinema/Wild_Poster-046ac5d0-a837-11f1-b424-7d1cbbc61a40.jpg;
+                    alt="Wild Tamil Nadu Movie poster">
+
+            </div>
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    Wild Tamil Nadu
+                </h3>
+
+                <div class="tooltip-container">
+
+                    <span class="movie-details">
+                        ⭐ 8.5 | A | Hindi
+                    </span>
+
+                    <span class="tooltip">
+                        Rating based on user reviews
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button class="book-btn">
+                Book Now
+            </button>
+
+        </div>
+
+
     </div>
 
-    <div class="movie-info">
-      <h5 class="movie-title">Hanuman Ansh</h5>
-      <span class="movie-details">U | Hindi</span>
+
+
+   
+
+    <div class="notification">
+        ✓ Booking Confirmed!
     </div>
-  </div>
-
-
-  
-  <div class="movie-card">
-    <div class="movie-image">
-      <img src="https://cdn.district.in/movies-assets/images/cinema/_Poster-d0d78f60-961a-11f1-8483-eb84b060bac3.jpg" alt="Mirzapur The Movie">
-    </div>
-
-    <div class="movie-info">
-      <h5 class="movie-title">Mirzapur: The Movie</h5>
-      <span class="movie-details">A | Hindi</span>
-    </div>
-  </div>
-
-
-  
-  <div class="movie-card">
-    <div class="movie-image">
-      <img src="https://cdn.district.in/movies-assets/images/cinema/3-e1335c90-1d43-11f1-978a-cfe6a2e40a5e.jpg?im=Resize,width=320">
-    </div>
-
-    <div class="movie-info">
-      <h5 class="movie-title">Toxic: A Fairy Tale for Grown-ups</h5>
-      <span class="movie-details">A | Hindi and 1 more</span>
-    </div>
-  </div>
-
-
-  
-  <div class="movie-card">
-    <div class="movie-image">
-      <img src="https://cdn.district.in/movies-assets/images/cinema/Awarapan-2-9ef17e10-9233-11f1-8803-49f5e14fa4f9.jpg?im=Resize,width=320">
-    </div>
-
-    <div class="movie-info">
-      <h5 class="movie-title">Awarapan 2</h5>
-      <span class="movie-details">UA16+ | Hindi</span>
-    </div>
-  </div>
-
-</div>
-  
-
 
 
 </body>
+
 </html>
